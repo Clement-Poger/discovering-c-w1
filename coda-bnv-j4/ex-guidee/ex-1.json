@@ -1,0 +1,34 @@
+{
+  "program_name": "Écrire le résultat d'une addition dans la mémoire",
+  "instructions": [
+    {
+      "name": "set",
+      "register": "cursor",
+      "value": 4
+    },
+    {
+      "name": "add",
+      "register": "storage",
+      "value": 6
+    },
+    {
+      "name": "write"
+    },
+    {
+      "name": "add",
+      "register": "storage",
+      "value": 6
+    },
+    {
+      "name": "write"
+    },
+    {
+      "name": "add",
+      "register": "storage",
+      "value": 6
+    },
+    {
+      "name": "write"
+    }
+  ]
+}

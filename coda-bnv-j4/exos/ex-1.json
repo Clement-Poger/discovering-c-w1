@@ -1,0 +1,18 @@
+{
+  "program_name": "La vie l'univers et tout le reste",
+  "instructions": [
+    {
+      "name": "add",
+      "register": "cursor",
+      "value": 42
+    },
+    {
+      "name": "add",
+      "register": "storage",
+      "value": 42
+    },
+    {
+      "name": "write"
+    }
+  ]
+}

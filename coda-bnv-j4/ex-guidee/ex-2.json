@@ -1,0 +1,45 @@
+{
+  "program_name": "Créer une boucle qui fait 5 tours﻿",
+  "instructions": [
+    {
+      "name": "add",
+      "register": "cursor",
+      "value": 0
+    },
+    {
+      "name": "add",
+      "register": "storage",
+      "value": 1
+    },
+    {
+      "name": "add",
+      "register": "condition",
+      "value": 1
+    },
+    {
+      "name": "write"
+    },
+    {
+      "name": "add",
+      "register": "storage",
+      "value": 1
+    },
+    {
+      "name": "add",
+      "register": "condition",
+      "value": 1
+    },
+    {
+      "name": "zjump",
+      "instruction_number": 8,
+      "value": 6
+    },
+    {
+      "name": "jump",
+      "instruction_number": 3
+    },
+    {
+      "name": "exit"
+    }
+  ]
+}
