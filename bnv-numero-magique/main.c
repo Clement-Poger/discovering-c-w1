@@ -23,20 +23,36 @@
 // Reset les Couleurs
 #define CRESET "\033[0m"
 
+char left_bar[101] = {0};
+char right_bar[101] = {0};
+char mid_bar[101] = {0};
+char min_sp_needed[10] = {0};
+char max_sp_needed[10] = {0};
+char spaces_needed[50] = {0};
+char middle_space_needed[50] = {0};
+
+void repeat_character(char *buffer, int count, char character)
+{
+    if (buffer == NULL) return;
+    if (count < 0) count = 0;
+
+    memset(buffer, (unsigned char)character, (size_t)count);
+    buffer[count] = '\0';
+}
+
+int number_length(int number)
+{
+    int length = 1;
+
+    while (number >= 10) {
+        number /= 10;
+        length++;
+    }
+
+    return length;
+}
 
 int main() {
-    // Répitition de caractère n fois [Plus d'info dans AIDE_EXTERIEURE.md]
-    #define REPEAT_STRING(name, count, character)             \
-        int name##_length = (count);                          \
-        if (name##_length < 0) {                              \
-            name##_length = 0;                                \
-        }                                                     \
-        char *name = malloc((size_t)name##_length + 1);       \
-        if (name != NULL) {                                   \
-            memset(name, (character), (size_t)name##_length); \
-            name[name##_length] = '\0';                       \
-        }
-
     // Initialisation du Menu Principal et de ses options
     int option;
     bool try_limit = false;
@@ -163,15 +179,15 @@ int main() {
                     int mid_bar_prog = 50 - (left_bar_prog + right_bar_prog);
 
                     // Répétition des caractères d'après la macro au début du main.
-                    REPEAT_STRING(left_bar, left_bar_prog, '-');
-                    REPEAT_STRING(right_bar, right_bar_prog, '-');
-                    REPEAT_STRING(mid_bar, mid_bar_prog, '=');
+                    repeat_character(left_bar, left_bar_prog, '-');
+                    repeat_character(right_bar, right_bar_prog, '-');
+                    repeat_character(mid_bar, mid_bar_prog, '=');
                     
                     // Ajustation des espaces à la taille des nombres
-                    int min_length = (try == 0) ? 1 : (int)log10(min) + 1;
-                    int max_length = (try == 0) ? 1 : (int)log10(max) + 1;
-                    REPEAT_STRING(min_sp_needed, 4 - min_length, ' ');
-                    REPEAT_STRING(max_sp_needed, 4 - max_length, ' ');
+                    int min_length = number_length(min);
+                    int max_length = number_length(max);
+                    repeat_character(min_sp_needed, 4 - min_length, ' ');
+                    repeat_character(max_sp_needed, 4 - max_length, ' ');
 
                     // Box affichant la plage restantes
                     printf(BLU " ┏━━━━━━━  "BCYN"C'est %s!"BLU"  ━━━━━━━━━┓\n", keyword);
@@ -203,13 +219,12 @@ int main() {
         system("clear");
         if (guess != nb_to_guess && try_limit) {
             // Cas où le joueur perd
-            int nb_to_guess_length =
-                (nb_to_guess == 0) ? 1 : (int)log10(nb_to_guess) + 1;
+            int nb_to_guess_length = number_length(nb_to_guess);
 
             // Calcul des Espaces pour centrer l'affichage
-            REPEAT_STRING(spaces_needed,
+            repeat_character(spaces_needed,
                           (31 - nb_to_guess_length) / 2, ' ');
-            REPEAT_STRING(middle_space_needed,
+            repeat_character(middle_space_needed,
                           (31 - nb_to_guess_length) % 2, ' ');
             
             // Affichage de la "box" de défaite
@@ -221,14 +236,13 @@ int main() {
             printf(RED " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n" CRESET);
         } else {
             // Cas où le joueur gagne
-            int nb_to_guess_length =
-                (nb_to_guess == 0) ? 1 : (int)log10(nb_to_guess) + 1;
-            int try_length = (try == 0) ? 1 : (int)log10(try) + 1;
+            int nb_to_guess_length = number_length(nb_to_guess);
+            int try_length = number_length(try);
 
             // Calcul des Espaces pour centrer l'affichage
-            REPEAT_STRING(spaces_needed,
+            repeat_character(spaces_needed,
                           (15 - nb_to_guess_length - try_length) / 2, ' ');
-            REPEAT_STRING(middle_space_needed,
+            repeat_character(middle_space_needed,
                           (15 - nb_to_guess_length - try_length) % 2, ' ');
             
             // Affichage de la "box" de victoire
